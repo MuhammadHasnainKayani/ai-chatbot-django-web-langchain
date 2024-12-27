@@ -1,0 +1,11 @@
+Django>=3.2,<5.0
+langchain>=0.0.150
+langchain-openai>=0.0.1
+langchain-community>=0.0.1
+python-dotenv>=0.19.0
+openai>=0.27.0
+faiss-cpu>=1.7.0
+django-cors-headers
+tiktoken
+djangorestframework
+django-csp

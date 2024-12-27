@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* body{
+  background-color: #020D00;
+} */
+:root {
+  --background:#1b1b1b;
+  --secondary-bg: #101010;
+  --incoming-bg: #cf244f;
+  --outgoing-bg: #ba2548;
+  --text-color: #F2F2F2;
+  --shadow-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Chatbot container styles */
+.chatbot {
+  position: fixed;
+  right: 35px;
+  bottom: 30px;
+  width: 420px;
+  background: var(--background);
+  border-radius: 0px;
+  overflow: hidden;
+  box-shadow: 0 15px 30px var(--shadow-color), 0 5px 15px var(--shadow-color);
+  animation: fadeInUp 0.5s ease-out;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.logo-image {
+  height: 70px;
+  margin-right: 10px;
+}
+.chatbot header {
+  padding: 16px 0;
+  position: relative;
+  text-align: center;
+  color: var(--text-color);
+  background: var(--secondary-bg);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border-bottom: 3px solid var(--outgoing-bg);
+}
+
+header h2 {
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+/* Chatbox area styles */
+.chatbox {
+  overflow-y: auto;
+  height: 440px;
+  padding: 20px;
+  padding-bottom: 100px;
+  box-sizing: border-box;
+  background: var(--background);
+  color: var(--text-color);
+}
+
+.chatbox .chat {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.chatbox .incoming {
+  justify-content: flex-start;
+}
+
+.chatbox .outgoing {
+  justify-content: flex-end;
+}
+
+.chatbox .chat p {
+  white-space: pre-wrap;
+  padding: 12px 16px;
+  border-radius: 15px;
+  max-width: 70%;
+  font-size: 1rem;
+}
+
+.chatbox .incoming p {
+  background: var(--incoming-bg);
+  border: 1px solid #75141D;
+  color: var(--text-color);
+}
+
+.chatbox .outgoing p {
+  background: var(--outgoing-bg);
+  color: #fff;
+  border: 1px solid #B51923;
+}
+
+/* Input area styles */
+.chat-input {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: var(--secondary-bg);
+  padding: 10px 20px;
+  border-top: 2px solid var(--incoming-bg);
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.chat-input textarea {
+  max-height: 55px;
+  height: 55px;
+  width: 100%;
+  border: 1px solid #333;
+  outline: none;
+  resize: none;
+  border-radius: 10px;
+  padding: 15px;
+  font-size: 0.95rem;
+  background: var(--incoming-bg);
+  color: var(--text-color);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.chat-input span {
+  align-self: flex-end;
+  color: var(--incoming-bg);
+  cursor: pointer;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  border-radius: 50%;
+  /* background: var(--outgoing-bg); */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, transform 0.2s;
+}
+
+
+
+/* Scrollbar styles */
+.chatbox::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chatbox::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 8px;
+}
+
+.chatbox::-webkit-scrollbar-thumb:hover {
+  background: var(--outgoing-bg);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .chatbox {
+    font-size: 14px;
+  }
+
+  .chat-response, .chat-message {
+    font-size: 13px;
+  }
+
+  .input-field {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chatbox {
+    font-size: 12px;
+  }
+
+  .chat-response, .chat-message {
+    font-size: 12px;
+  }
+
+  .input-field {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 490px) {
+  .chatbot {
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    border-radius: 0;
+    width: 100%;
+  }
+
+  .chatbox {
+    height: 85%;
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
