@@ -11,7 +11,7 @@
       // Create the floating chat button
       const chatButton = document.createElement("div");
       chatButton.id = "chatbot-button";
-      chatButton.innerHTML = "<i class='fa fa-comments'></i>"; // Beautiful chat icon from Font Awesome
+      chatButton.innerHTML = "<i class='fa fa-comments'></i>";
       chatButton.style.cssText = `
         position: fixed;
         bottom: 20px;
@@ -26,11 +26,11 @@
         align-items: center;
         cursor: pointer;
         z-index: 1000;
-        font-size: 30px; /* Adjust icon size */
+        font-size: 30px;
         transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
       `;
 
-      // Add hover effect to the chat button
+      // Add hover effects
       chatButton.addEventListener("mouseover", () => {
         chatButton.style.transform = "scale(1.1)";
         chatButton.style.boxShadow = "0 6px 12px rgba(0, 0, 0, 0.3)";
@@ -56,8 +56,9 @@
         width: 380px;
         height: 500px;
         background: white;
-        border: 1px solid #101010;
+        border: none;
         border-radius: 15px;
+         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 8px 10px rgba(0, 0, 0, 0.1);
         z-index: 1001;
         overflow: hidden;
       `;
@@ -65,28 +66,61 @@
         <iframe
           id="chatbot-frame"
           src="https://hasnainprojects.pythonanywhere.com/home"
-          style="width: 100%; height: 100%; border: none; border-radius: 15px;"
+          style="width: 100%; height: 100%; border: none;"
         ></iframe>
+        <div id="chatbot-popup-close">
+          <i class="fa fa-times"></i>
+        </div>
       `;
+
+      // Style the close button
+      const chatPopupClose = chatPopup.querySelector("#chatbot-popup-close");
+      chatPopupClose.style.cssText = `
+        display: none;
+        position: absolute;
+        top: 22px;
+        right: 20px;
+        font-size: 22px;
+        cursor: pointer;
+        color: #ebf0ec;
+        z-index: 1002;
+      `;
+
+      // Add functionality to hide the chatbot on close button click
+      chatPopupClose.addEventListener("click", () => {
+        chatPopup.style.display = "none"; // Hide chatbot
+        chatButton.style.display = "flex"; // Show chat button again
+        chatPopupClose.style.display = "none"; // Hide close button
+      });
+
       document.body.appendChild(chatPopup);
 
       // Toggle functionality for the chat button
-      let isChatOpen = false; // Track chat state
       chatButton.addEventListener("click", () => {
-        isChatOpen = !isChatOpen;
-        if (isChatOpen) {
-          chatPopup.style.display = "block";
-          chatButton.innerHTML = "<i class='fa fa-times'></i>"; // Cross icon for closing
-          chatButton.style.transform = "rotate(180deg)"; // Rotate button when open
+        const isMobileView = window.innerWidth <= 480; // Check if in mobile view
+        if (isMobileView) {
+          chatPopup.style.display = "block"; // Show chatbot in fullscreen
+          chatPopup.style.width = "100%";
+          chatPopup.style.height = "100%";
+          chatPopup.style.borderRadius = "0 !important";
+          chatPopup.style.bottom = "0";
+          chatPopup.style.right = "0";
+          chatButton.style.display = "none"; // Hide chat button in mobile view
+          chatPopupClose.style.display = "block"; // Show close button
         } else {
-          chatPopup.style.display = "none";
-          chatButton.innerHTML = "<i class='fa fa-comments'></i>"; // Chat icon for opening
-          chatButton.style.transform = "rotate(0deg)"; // Reset rotation
+          const isChatOpen = chatPopup.style.display === "block";
+          if (!isChatOpen) {
+            chatPopup.style.display = "block"; // Show chatbot
+            chatButton.innerHTML = "<i class='fa fa-times'></i>"; // Cross icon
+          } else {
+            chatPopup.style.display = "none"; // Hide chatbot
+            chatButton.innerHTML = "<i class='fa fa-comments'></i>"; // Chat icon
+          }
         }
       });
 
       // Responsive styles for mobile and tablet view
-      const style = document.createElement('style');
+      const style = document.createElement("style");
       style.innerHTML = `
         @media (max-width: 768px) {
           #chatbot-button {
@@ -96,7 +130,6 @@
             bottom: 15px;
             right: 15px;
           }
-
           #chatbot-popup {
             width: 300px;
             height: 400px;
@@ -104,19 +137,12 @@
         }
 
         @media (max-width: 480px) {
-          #chatbot-button {
-            width: 45px;
-            height: 45px;
-            font-size: 22px;
-            bottom: 10px;
-            right: 10px;
-          }
-
           #chatbot-popup {
-            width: 100% !important;
-            height: 350px;
-            right: 4px !important;
-              left: 2px !important;
+            display: none;
+            border-radius: 0 !important;
+          }
+          #chatbot-popup-close {
+            display: none; /* Initially hidden until chat opens */
           }
         }
       `;
